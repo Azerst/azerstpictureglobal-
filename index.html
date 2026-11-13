@@ -99,12 +99,12 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- ============================================================
-       GUARD OVERLAY — CYBER SECURITY STYLE v2 (3s)
-       ============================================================ -->
-  <div class="guard-overlay" id="guardOverlay" role="alertdialog" aria-modal="true" aria-hidden="true">
+  <!-- ╔════════════════════════════════════════════════════════════╗
+       ║   GUARD OVERLAY v3 — BẮT ĐẦU                               ║
+       ╚════════════════════════════════════════════════════════════╝ -->
+  <div class="guard-overlay" id="guardOverlay" data-type="default" role="alertdialog" aria-modal="true" aria-hidden="true">
 
-    <!-- Hex rain 3 cột -->
+    <!-- Hex rain -->
     <div class="guard-hex" aria-hidden="true">
       <div class="guard-hex-col guard-hex-col-1">4F 2A 9B C1 E0 7D 3B 8A
 F5 61 0C D4 92 5E A7 1B
@@ -175,15 +175,20 @@ A1 5C 3F 8B 2D 6E 9A 47
       <span class="guard-corner guard-corner-bl" aria-hidden="true"></span>
       <span class="guard-corner guard-corner-br" aria-hidden="true"></span>
 
-      <div class="guard-stripes" aria-hidden="true"></div>
+      <div class="guard-stripes guard-stripes-top"    aria-hidden="true"></div>
+      <div class="guard-stripes guard-stripes-bottom" aria-hidden="true"></div>
 
-      <div class="guard-error-code" aria-hidden="true">
-        <span class="guard-error-dot"></span>
-        ERROR 403 // FORBIDDEN ACCESS
+      <div class="guard-error-code">
+        <span class="guard-error-dot" aria-hidden="true"></span>
+        <span id="guardErrorCode">ERR 403 // FORBIDDEN ACCESS</span>
       </div>
 
       <div class="guard-icon-wrap">
-        <div class="guard-icon-ring" aria-hidden="true"></div>
+        <span class="guard-radar" aria-hidden="true"></span>
+        <span class="guard-pulse-ring" aria-hidden="true"></span>
+        <span class="guard-pulse-ring" aria-hidden="true"></span>
+        <span class="guard-pulse-ring" aria-hidden="true"></span>
+
         <div class="guard-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                stroke-linecap="round" stroke-linejoin="round">
@@ -194,9 +199,9 @@ A1 5C 3F 8B 2D 6E 9A 47
         </div>
       </div>
 
-      <h2 class="guard-title" data-text="TRUY CẬP BỊ CHẶN">TRUY CẬP BỊ CHẶN</h2>
-      <p class="guard-subtitle">▸ PHÁT HIỆN DEVTOOLS ◂</p>
-      <p class="guard-desc">Hệ thống đã phát hiện hành vi can thiệp. Vui lòng đóng DevTools để tiếp tục.</p>
+      <h2 class="guard-title" id="guardTitle" data-text="TRUY CẬP TRÁI PHÉP">TRUY CẬP TRÁI PHÉP</h2>
+      <p class="guard-subtitle" id="guardSubtitle">▸ HỆ THỐNG BẢO VỆ ◂</p>
+      <p class="guard-desc" id="guardDesc">Hệ thống đã phát hiện hành vi can thiệp. Vui lòng dừng lại.</p>
 
       <div class="guard-countdown-wrap">
         <svg class="guard-ring" viewBox="0 0 120 120" aria-hidden="true">
@@ -213,6 +218,9 @@ A1 5C 3F 8B 2D 6E 9A 47
       </div>
     </div>
   </div>
+  <!-- ╔════════════════════════════════════════════════════════════╗
+       ║   GUARD OVERLAY v3 — KẾT THÚC                              ║
+       ╚════════════════════════════════════════════════════════════╝ -->
 
   <script src="./assets/script.js" defer></script>
   <script src="./assets/guard.js" defer></script>
