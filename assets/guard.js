@@ -1,4 +1,4 @@
-/* GUARD — Phát hiện vi phạm, hiện cảnh báo 3s rồi reload */
+/* GUARD — Phát hiện vi phạm, cảnh báo 3s rồi reload */
 (function () {
   'use strict';
 
