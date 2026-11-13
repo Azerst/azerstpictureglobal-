@@ -1,4 +1,4 @@
-/* GUARD — Phát hiện vi phạm, cảnh báo 3s rồi reload */
+/* GUARD — Detect violations, show warning 3s then reload */
 (function () {
   'use strict';
 
@@ -6,18 +6,55 @@
   const LONG_PRESS_MS = 800;
 
   const GUARD_MESSAGES = {
-    longpress: { code: 'ERR 800 // LONG-PRESS DETECTED', title: 'PHÁT HIỆN GIỮ MÀN HÌNH', subtitle: '▸ HÀNH VI ĐÁNG NGỜ ◂', desc: 'Bạn đã giữ màn hình quá lâu. Đây là hành vi bị nghi ngờ. Trang sẽ tự tải lại sau:' },
-    devtools:  { code: 'ERR 403 // DEVTOOLS DETECTED',   title: 'PHÁT HIỆN DEVTOOLS',       subtitle: '▸ CÔNG CỤ NHÀ PHÁT TRIỂN ◂', desc: 'DevTools đang mở. Vui lòng đóng để tiếp tục sử dụng trang web.' },
-    f12:       { code: 'ERR 403 // F12 BLOCKED',         title: 'PHÍM F12 BỊ CHẶN',         subtitle: '▸ PHÍM TẮT BỊ VÔ HIỆU ◂', desc: 'Phím F12 đã bị vô hiệu hóa trên trang này. Trang sẽ tự tải lại sau:' },
-    shortcut:  { code: 'ERR 403 // HOTKEY BLOCKED',      title: 'PHÍM TẮT BỊ CHẶN',         subtitle: '▸ PHÍM TẮT BỊ VÔ HIỆU ◂', desc: 'Tổ hợp phím này đã bị chặn trên trang. Trang sẽ tự tải lại sau:' },
-    source:    { code: 'ERR 403 // VIEW-SOURCE BLOCKED', title: 'XEM MÃ NGUỒN BỊ CHẶN',      subtitle: '▸ HÀNH VI SAO CHÉP ◂',   desc: 'Không thể xem mã nguồn trang. Trang sẽ tự tải lại sau:' },
-    copy:      { code: 'ERR 403 // COPY BLOCKED',        title: 'SAO CHÉP BỊ CHẶN',          subtitle: '▸ BẢO VỆ NỘI DUNG ◂',   desc: 'Hành động sao chép đã bị chặn. Trang sẽ tự tải lại sau:' },
-    default:   { code: 'ERR 403 // FORBIDDEN ACCESS',    title: 'TRUY CẬP TRÁI PHÉP',        subtitle: '▸ HỆ THỐNG BẢO VỆ ◂',   desc: 'Hệ thống đã phát hiện hành vi can thiệp. Vui lòng dừng lại.' }
+    longpress: {
+      code: 'WARNING',
+      title: 'LONG PRESS DETECTED',
+      subtitle: '▸ SUSPICIOUS ACTIVITY ◂',
+      desc: 'Long-press has been detected on this page. The page will reload shortly.'
+    },
+    devtools: {
+      code: 'ACCESS DENIED',
+      title: 'DEVTOOLS DETECTED',
+      subtitle: '▸ DEVELOPER TOOLS OPEN ◂',
+      desc: 'Please close DevTools to continue browsing the page.'
+    },
+    f12: {
+      code: 'BLOCKED',
+      title: 'F12 KEY DISABLED',
+      subtitle: '▸ HOTKEY RESTRICTED ◂',
+      desc: 'F12 has been disabled on this page. The page will reload shortly.'
+    },
+    shortcut: {
+      code: 'BLOCKED',
+      title: 'SHORTCUT DISABLED',
+      subtitle: '▸ HOTKEY RESTRICTED ◂',
+      desc: 'This keyboard shortcut has been restricted. The page will reload shortly.'
+    },
+    source: {
+      code: 'ACCESS DENIED',
+      title: 'SOURCE CODE LOCKED',
+      subtitle: '▸ PROTECTED CONTENT ◂',
+      desc: 'The page source cannot be viewed. The page will reload shortly.'
+    },
+    copy: {
+      code: 'PROTECTED',
+      title: 'COPY RESTRICTED',
+      subtitle: '▸ CONTENT PROTECTED ◂',
+      desc: 'Copy action has been blocked. The page will reload shortly.'
+    },
+    default: {
+      code: 'WARNING',
+      title: 'ACCESS DENIED',
+      subtitle: '▸ SECURITY SYSTEM ◂',
+      desc: 'Unauthorized access has been detected. The page will reload shortly.'
+    }
   };
 
   let triggered = false;
   let countdownTimer = null;
   let overlayEl, countdownEl, secondsEl, codeEl, titleEl, subtitleEl, descEl;
+
+  const baseDPR = window.devicePixelRatio || 1;
 
   function ensureRefs() {
     if (overlayEl) return;
@@ -75,7 +112,7 @@
     }, 1000);
   }
 
-  /* Chặn phím tắt */
+  /* Block hotkeys */
   document.addEventListener('keydown', (e) => {
     const k = (e.key || '').toLowerCase();
     const tag = (e.target && e.target.tagName || '').toLowerCase();
@@ -106,10 +143,10 @@
     }
   }, true);
 
-  /* Chặn menu chuột phải */
+  /* Block context menu */
   document.addEventListener('contextmenu', (e) => e.preventDefault(), { passive: false });
 
-  /* Chặn copy/cut/drag */
+  /* Block copy/cut/drag */
   ['copy','cut','selectstart','dragstart'].forEach(evt => {
     document.addEventListener(evt, (e) => {
       const tag = (e.target && e.target.tagName || '').toLowerCase();
@@ -118,7 +155,7 @@
     }, { passive: false });
   });
 
-  /* Long-press 800ms → vàng */
+  /* Long-press 800ms */
   (function initLongPress() {
     let pressTimer = null, startX = 0, startY = 0, isPressing = false;
     const MOVE_TOLERANCE = 12;
@@ -185,15 +222,21 @@
     document.addEventListener('mouseleave', clear);
   })();
 
-  /* Detect DevTools */
+  /* Detect DevTools — FIX ZOOM BUG */
   const isDesktop = window.matchMedia('(pointer:fine)').matches;
+
   if (isDesktop) {
     setInterval(() => {
       if (triggered) return;
+
+      /* Bỏ qua nếu đang zoom (DPR khác giá trị ban đầu) */
+      const currentDPR = window.devicePixelRatio || 1;
+      if (Math.abs(currentDPR - baseDPR) > 0.05) return;
+
       const wDiff = window.outerWidth  - window.innerWidth;
       const hDiff = window.outerHeight - window.innerHeight;
-      if (wDiff > 260 || hDiff > 260) triggerGuard('devtools');
-    }, 1000);
+      if (wDiff > 300 || hDiff > 300) triggerGuard('devtools');
+    }, 1500);
 
     setInterval(() => {
       if (triggered) return;
@@ -201,7 +244,7 @@
       // eslint-disable-next-line no-debugger
       debugger;
       const t1 = performance.now();
-      if (t1 - t0 > 200) triggerGuard('devtools');
+      if (t1 - t0 > 300) triggerGuard('devtools');
     }, 2500);
 
     try {
