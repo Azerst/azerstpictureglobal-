@@ -99,40 +99,28 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- ╔════════════════════════════════════════════════════════════╗
-       ║   GUARD OVERLAY v4 — PREMIUM (đã bỏ hex rain)              ║
-       ╚════════════════════════════════════════════════════════════╝ -->
+  <!-- GUARD OVERLAY — đơn giản, không quét, 3 giây -->
   <div class="guard-overlay" id="guardOverlay" data-type="default" role="alertdialog" aria-modal="true" aria-hidden="true">
 
-    <!-- Mesh gradient nền -->
     <div class="guard-mesh" aria-hidden="true"></div>
 
     <div class="guard-card">
 
-      <!-- 4 góc HUD -->
       <span class="guard-corner guard-corner-tl" aria-hidden="true"></span>
       <span class="guard-corner guard-corner-tr" aria-hidden="true"></span>
       <span class="guard-corner guard-corner-bl" aria-hidden="true"></span>
       <span class="guard-corner guard-corner-br" aria-hidden="true"></span>
 
-      <!-- Vạch sọc trên + dưới -->
       <div class="guard-stripes guard-stripes-top"    aria-hidden="true"></div>
       <div class="guard-stripes guard-stripes-bottom" aria-hidden="true"></div>
 
-      <!-- Error code badge -->
       <div class="guard-error-code">
         <span class="guard-error-dot" aria-hidden="true"></span>
         <span id="guardErrorCode">ERR 403 // FORBIDDEN ACCESS</span>
       </div>
 
-      <!-- Icon zone -->
       <div class="guard-icon-wrap">
-        <span class="guard-radar" aria-hidden="true"></span>
-        <span class="guard-pulse-ring" aria-hidden="true"></span>
-        <span class="guard-pulse-ring" aria-hidden="true"></span>
-        <span class="guard-pulse-ring" aria-hidden="true"></span>
         <span class="guard-halo" aria-hidden="true"></span>
-
         <div class="guard-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">
@@ -143,12 +131,10 @@
         </div>
       </div>
 
-      <!-- Content -->
       <h2 class="guard-title" id="guardTitle" data-text="TRUY CẬP TRÁI PHÉP">TRUY CẬP TRÁI PHÉP</h2>
       <p class="guard-subtitle" id="guardSubtitle">▸ HỆ THỐNG BẢO VỆ ◂</p>
       <p class="guard-desc" id="guardDesc">Hệ thống đã phát hiện hành vi can thiệp. Vui lòng dừng lại.</p>
 
-      <!-- Countdown -->
       <div class="guard-countdown-wrap">
         <svg class="guard-ring" viewBox="0 0 120 120" aria-hidden="true">
           <circle class="guard-ring-bg" cx="60" cy="60" r="52"/>
@@ -160,7 +146,6 @@
 
       <p class="guard-note">TỰ ĐỘNG TẢI LẠI SAU <span id="guardSeconds">3</span>S</p>
 
-      <!-- Progress bar -->
       <div class="guard-progress" aria-hidden="true">
         <div class="guard-progress-bar"></div>
       </div>
