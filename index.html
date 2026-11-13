@@ -99,7 +99,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- GUARD OVERLAY — đơn giản, không quét, 3 giây -->
+  <!-- GUARD OVERLAY — huy hiệu cảnh báo + loading ngang 3s -->
   <div class="guard-overlay" id="guardOverlay" data-type="default" role="alertdialog" aria-modal="true" aria-hidden="true">
 
     <div class="guard-mesh" aria-hidden="true"></div>
@@ -114,11 +114,21 @@
       <div class="guard-stripes guard-stripes-top"    aria-hidden="true"></div>
       <div class="guard-stripes guard-stripes-bottom" aria-hidden="true"></div>
 
-      <div class="guard-error-code">
-        <span class="guard-error-dot" aria-hidden="true"></span>
-        <span id="guardErrorCode">ERR 403 // FORBIDDEN ACCESS</span>
+      <!-- Huy hiệu cảnh báo -->
+      <div class="guard-badge" role="presentation">
+        <span class="guard-badge-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9"  x2="12"    y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </span>
+        <span class="guard-badge-text" id="guardErrorCode">ERR 403 // FORBIDDEN ACCESS</span>
+        <span class="guard-badge-dot" aria-hidden="true"></span>
       </div>
 
+      <!-- Icon shield -->
       <div class="guard-icon-wrap">
         <span class="guard-halo" aria-hidden="true"></span>
         <div class="guard-icon" aria-hidden="true">
@@ -135,20 +145,30 @@
       <p class="guard-subtitle" id="guardSubtitle">▸ HỆ THỐNG BẢO VỆ ◂</p>
       <p class="guard-desc" id="guardDesc">Hệ thống đã phát hiện hành vi can thiệp. Vui lòng dừng lại.</p>
 
+      <!-- Countdown ring 3s -->
       <div class="guard-countdown-wrap">
         <svg class="guard-ring" viewBox="0 0 120 120" aria-hidden="true">
-          <circle class="guard-ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="guard-ring-bg"   cx="60" cy="60" r="52"/>
           <circle class="guard-ring-glow" cx="60" cy="60" r="52"/>
-          <circle class="guard-ring-fg" cx="60" cy="60" r="52"/>
+          <circle class="guard-ring-fg"   cx="60" cy="60" r="52"/>
         </svg>
         <div class="guard-countdown" id="guardCountdown">3</div>
       </div>
 
-      <p class="guard-note">TỰ ĐỘNG TẢI LẠI SAU <span id="guardSeconds">3</span>S</p>
-
-      <div class="guard-progress" aria-hidden="true">
-        <div class="guard-progress-bar"></div>
+      <!-- Loading ngang 3s -->
+      <div class="guard-loading">
+        <div class="guard-loading-track">
+          <div class="guard-loading-fill">
+            <div class="guard-loading-shimmer" aria-hidden="true"></div>
+            <span class="guard-loading-marker" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="guard-loading-info">
+          <span class="guard-loading-label">ĐANG KHÔI PHỤC</span>
+          <span class="guard-loading-time"><span id="guardSeconds">3</span>S</span>
+        </div>
       </div>
+
     </div>
   </div>
 
