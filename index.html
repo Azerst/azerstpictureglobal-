@@ -100,14 +100,88 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- ============================================================
-       GUARD OVERLAY — PHIÊN BẢN MỚI (Cyber Security Style)
+       GUARD OVERLAY — CYBER SECURITY STYLE v2 (3s)
        ============================================================ -->
   <div class="guard-overlay" id="guardOverlay" role="alertdialog" aria-modal="true" aria-hidden="true">
+
+    <!-- Hex rain 3 cột -->
+    <div class="guard-hex" aria-hidden="true">
+      <div class="guard-hex-col guard-hex-col-1">4F 2A 9B C1 E0 7D 3B 8A
+F5 61 0C D4 92 5E A7 1B
+8C 3F E2 74 9A 0B 5D C8
+1F 6E 4B A0 72 D9 3C 85
+B4 E7 29 5F 8C 1A 6D 40
+93 B8 5E 2C 7F A1 4B 0D
+6C 8A 3F 92 E1 7B 5D 24
+0E 9A 6D 4C B7 1F 8E 32
+F1 5C 3E 8B 6D 2A 9F 74
+A7 4B 1D 6E 3C 9A 8F 25
+C8 5B 2E 7A 4F 9D 1C 63
+2F 9E 5C 8B 1A 7D 4E 96
+7B 3D 8A 2F 6E 1C 9B 54
+E5 8C 1B 4F 7A 3D 6E 92
+9A 2C 5F 8E 1D 4B 7C 36
+3F 7A 4C 9E 2B 6D 8F 51
+6E 9B 2A 5D 8C 4F 1E 73
+B1 7F 3C 8E 5A 2D 9B 46
+4D 8F 2B 6A 9E 3C 7F 15
+5A 1E 9C 3B 8F 6D 2A 74</div>
+      <div class="guard-hex-col guard-hex-col-2">8C 3F E2 74 9A 0B 5D C8
+1F 6E 4B A0 72 D9 3C 85
+B4 E7 29 5F 8C 1A 6D 40
+93 B8 5E 2C 7F A1 4B 0D
+6C 8A 3F 92 E1 7B 5D 24
+0E 9A 6D 4C B7 1F 8E 32
+F1 5C 3E 8B 6D 2A 9F 74
+A7 4B 1D 6E 3C 9A 8F 25
+C8 5B 2E 7A 4F 9D 1C 63
+2F 9E 5C 8B 1A 7D 4E 96
+7B 3D 8A 2F 6E 1C 9B 54
+E5 8C 1B 4F 7A 3D 6E 92
+9A 2C 5F 8E 1D 4B 7C 36
+3F 7A 4C 9E 2B 6D 8F 51
+6E 9B 2A 5D 8C 4F 1E 73
+B1 7F 3C 8E 5A 2D 9B 46
+4D 8F 2B 6A 9E 3C 7F 15
+5A 1E 9C 3B 8F 6D 2A 74
+4F 2A 9B C1 E0 7D 3B 8A
+F5 61 0C D4 92 5E A7 1B</div>
+      <div class="guard-hex-col guard-hex-col-3">A3 5C 1D 9E 4B 8F 2A 6C
+B7 E1 0F 3D 85 4C 9A 2E
+7D 3A 8F 1B 6E 4C 9D 5A
+2F 9C 6E 3B 8A 1D 4F 75
+E1 5C 3F 8B 2D 6E 9A 47
+4B 7E 2C 9F 5A 1D 8E 63
+8A 3D 6F 2E 9B 4C 1A 75
+1E 9F 5B 2C 8D 4A 7E 63
+C5 8E 1D 4B 6A 9F 2C 73
+9B 2A 7D 4E 1F 6C 8A 53
+3E 8A 5C 2F 9D 1B 4E 76
+6D 4F 9A 1E 8C 3B 2A 75
+7C 2E 9F 5D 8A 1B 4E 63
+E7 4B 1C 8F 2A 6E 9D 35
+5B 9D 2E 8A 1F 4C 6E 73
+8F 3C 1B 9A 4E 2D 7F 65
+2A 7E 9C 3D 8B 5F 1A 74
+6E 9A 4F 1D 8C 3B 5E 72
+A1 5C 3F 8B 2D 6E 9A 47
+4B 7E 2C 9F 5A 1D 8E 63</div>
+    </div>
+
     <div class="guard-card">
-      <!-- Vạch sọc cảnh báo chạy ngang trên cùng -->
+
+      <span class="guard-corner guard-corner-tl" aria-hidden="true"></span>
+      <span class="guard-corner guard-corner-tr" aria-hidden="true"></span>
+      <span class="guard-corner guard-corner-bl" aria-hidden="true"></span>
+      <span class="guard-corner guard-corner-br" aria-hidden="true"></span>
+
       <div class="guard-stripes" aria-hidden="true"></div>
 
-      <!-- Icon cảnh báo với viền sóng xung kích -->
+      <div class="guard-error-code" aria-hidden="true">
+        <span class="guard-error-dot"></span>
+        ERROR 403 // FORBIDDEN ACCESS
+      </div>
+
       <div class="guard-icon-wrap">
         <div class="guard-icon-ring" aria-hidden="true"></div>
         <div class="guard-icon" aria-hidden="true">
@@ -120,23 +194,20 @@
         </div>
       </div>
 
-      <!-- Tiêu đề + mô tả -->
-      <h2 class="guard-title">Truy Cập Bị Chặn</h2>
-      <p class="guard-subtitle">Phát hiện công cụ DevTools</p>
-      <p class="guard-desc">Vui lòng đóng DevTools để tiếp tục. Trang sẽ tự khôi phục sau:</p>
+      <h2 class="guard-title" data-text="TRUY CẬP BỊ CHẶN">TRUY CẬP BỊ CHẶN</h2>
+      <p class="guard-subtitle">▸ PHÁT HIỆN DEVTOOLS ◂</p>
+      <p class="guard-desc">Hệ thống đã phát hiện hành vi can thiệp. Vui lòng đóng DevTools để tiếp tục.</p>
 
-      <!-- Vòng tròn đếm ngược SVG -->
       <div class="guard-countdown-wrap">
         <svg class="guard-ring" viewBox="0 0 120 120" aria-hidden="true">
           <circle class="guard-ring-bg" cx="60" cy="60" r="52"/>
           <circle class="guard-ring-fg" cx="60" cy="60" r="52"/>
         </svg>
-        <div class="guard-countdown" id="guardCountdown">4</div>
+        <div class="guard-countdown" id="guardCountdown">3</div>
       </div>
 
-      <p class="guard-note">Giây • Tự động tải lại</p>
+      <p class="guard-note">TỰ ĐỘNG TẢI LẠI SAU <span id="guardSeconds">3</span>S</p>
 
-      <!-- Progress bar đáy -->
       <div class="guard-progress" aria-hidden="true">
         <div class="guard-progress-bar"></div>
       </div>
