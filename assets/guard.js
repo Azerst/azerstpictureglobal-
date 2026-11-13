@@ -1,4 +1,4 @@
-/* GUARD — Detect violations, show warning 3s then reload */
+/* GUARD — Phát hiện vi phạm, cảnh báo 3s rồi reload */
 (function () {
   'use strict';
 
@@ -7,52 +7,45 @@
 
   const GUARD_MESSAGES = {
     longpress: {
-      code: 'WARNING',
-      title: 'LONG PRESS DETECTED',
-      subtitle: '▸ SUSPICIOUS ACTIVITY ◂',
-      desc: 'Long-press has been detected on this page. The page will reload shortly.'
+      title: 'PHÁT HIỆN GIỮ MÀN HÌNH',
+      subtitle: 'HÀNH VI ĐÁNG NGỜ',
+      desc: 'Bạn đã giữ màn hình quá lâu. Đây là hành vi bị nghi ngờ. Trang sẽ tự tải lại sau:'
     },
     devtools: {
-      code: 'ACCESS DENIED',
-      title: 'DEVTOOLS DETECTED',
-      subtitle: '▸ DEVELOPER TOOLS OPEN ◂',
-      desc: 'Please close DevTools to continue browsing the page.'
+      title: 'PHÁT HIỆN DEVTOOLS',
+      subtitle: 'CÔNG CỤ NHÀ PHÁT TRIỂN',
+      desc: 'DevTools đang mở. Vui lòng đóng để tiếp tục sử dụng trang web.'
     },
     f12: {
-      code: 'BLOCKED',
-      title: 'F12 KEY DISABLED',
-      subtitle: '▸ HOTKEY RESTRICTED ◂',
-      desc: 'F12 has been disabled on this page. The page will reload shortly.'
+      title: 'PHÍM F12 BỊ CHẶN',
+      subtitle: 'PHÍM TẮT BỊ VÔ HIỆU',
+      desc: 'Phím F12 đã bị vô hiệu hóa trên trang này. Trang sẽ tự tải lại sau:'
     },
     shortcut: {
-      code: 'BLOCKED',
-      title: 'SHORTCUT DISABLED',
-      subtitle: '▸ HOTKEY RESTRICTED ◂',
-      desc: 'This keyboard shortcut has been restricted. The page will reload shortly.'
+      title: 'PHÍM TẮT BỊ CHẶN',
+      subtitle: 'PHÍM TẮT BỊ VÔ HIỆU',
+      desc: 'Tổ hợp phím này đã bị chặn trên trang. Trang sẽ tự tải lại sau:'
     },
     source: {
-      code: 'ACCESS DENIED',
-      title: 'SOURCE CODE LOCKED',
-      subtitle: '▸ PROTECTED CONTENT ◂',
-      desc: 'The page source cannot be viewed. The page will reload shortly.'
+      title: 'XEM MÃ NGUỒN BỊ CHẶN',
+      subtitle: 'HÀNH VI SAO CHÉP',
+      desc: 'Không thể xem mã nguồn trang. Trang sẽ tự tải lại sau:'
     },
     copy: {
-      code: 'PROTECTED',
-      title: 'COPY RESTRICTED',
-      subtitle: '▸ CONTENT PROTECTED ◂',
-      desc: 'Copy action has been blocked. The page will reload shortly.'
+      title: 'SAO CHÉP BỊ CHẶN',
+      subtitle: 'BẢO VỆ NỘI DUNG',
+      desc: 'Hành động sao chép đã bị chặn. Trang sẽ tự tải lại sau:'
     },
     default: {
-      code: 'WARNING',
-      title: 'ACCESS DENIED',
-      subtitle: '▸ SECURITY SYSTEM ◂',
-      desc: 'Unauthorized access has been detected. The page will reload shortly.'
+      title: 'TRUY CẬP TRÁI PHÉP',
+      subtitle: 'HỆ THỐNG BẢO VỆ',
+      desc: 'Hệ thống đã phát hiện hành vi can thiệp. Vui lòng dừng lại.'
     }
   };
 
   let triggered = false;
   let countdownTimer = null;
-  let overlayEl, countdownEl, secondsEl, codeEl, titleEl, subtitleEl, descEl;
+  let overlayEl, countdownEl, secondsEl, titleEl, subtitleEl, descEl;
 
   const baseDPR = window.devicePixelRatio || 1;
 
@@ -61,7 +54,6 @@
     overlayEl   = document.getElementById('guardOverlay');
     countdownEl = document.getElementById('guardCountdown');
     secondsEl   = document.getElementById('guardSeconds');
-    codeEl      = document.getElementById('guardErrorCode');
     titleEl     = document.getElementById('guardTitle');
     subtitleEl  = document.getElementById('guardSubtitle');
     descEl      = document.getElementById('guardDesc');
@@ -85,17 +77,12 @@
     const msg = GUARD_MESSAGES[key];
 
     if (overlayEl) {
-      overlayEl.dataset.type = key;
       overlayEl.classList.add('is-show');
       overlayEl.setAttribute('aria-hidden', 'false');
     }
-    if (codeEl)     codeEl.textContent = msg.code;
-    if (titleEl) {
-      titleEl.textContent = msg.title;
-      titleEl.setAttribute('data-text', msg.title);
-    }
+    if (titleEl)    titleEl.textContent    = msg.title;
     if (subtitleEl) subtitleEl.textContent = msg.subtitle;
-    if (descEl)     descEl.textContent = msg.desc;
+    if (descEl)     descEl.textContent     = msg.desc;
 
     let count = RELOAD_DELAY;
     if (countdownEl) countdownEl.textContent = count;
@@ -112,7 +99,7 @@
     }, 1000);
   }
 
-  /* Block hotkeys */
+  /* Chặn phím tắt */
   document.addEventListener('keydown', (e) => {
     const k = (e.key || '').toLowerCase();
     const tag = (e.target && e.target.tagName || '').toLowerCase();
@@ -143,10 +130,10 @@
     }
   }, true);
 
-  /* Block context menu */
+  /* Chặn menu chuột phải */
   document.addEventListener('contextmenu', (e) => e.preventDefault(), { passive: false });
 
-  /* Block copy/cut/drag */
+  /* Chặn copy/cut/drag */
   ['copy','cut','selectstart','dragstart'].forEach(evt => {
     document.addEventListener(evt, (e) => {
       const tag = (e.target && e.target.tagName || '').toLowerCase();
@@ -229,7 +216,6 @@
     setInterval(() => {
       if (triggered) return;
 
-      /* Bỏ qua nếu đang zoom (DPR khác giá trị ban đầu) */
       const currentDPR = window.devicePixelRatio || 1;
       if (Math.abs(currentDPR - baseDPR) > 0.05) return;
 
